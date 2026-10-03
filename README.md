@@ -4,6 +4,10 @@
 
 Spooky memory card game . Flip two cards at a time, if they are matching cards, you progress into the game, if not the cards face hide again and you have to remember the position of the cards you flipped, you get a limited set of time to get all the 16 cards matching, if you get it under 60 seconds you win or you lose.
 
+it is deployed on github pages:
+
+https://okdrinkwater1.github.io/Bats-and-Bones/
+
 ## HOW TO PLAY
 
 1. Click on "Click to play" pretty self explanatory
