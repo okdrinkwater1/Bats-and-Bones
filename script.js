@@ -24,6 +24,7 @@ class AudioController{
     victory(){
         this.stopMusic();
         this.victorySound.play();
+        document.getElementById('victory-text').classList.add('visible');
     }
     gameOver(){
         this.stopMusic();     
@@ -38,6 +39,9 @@ class MixOrMatch{
         this.timer=document.getElementById('time-remaining');
         this.ticker=document.getElementById('flips');
         this.audioController=new AudioController();
+        this.best=document.getElementById('best_score');
+        this.bestScore=Number(localStorage.getItem('userBest'))||null;
+        this.showBest();
     }
     startGame(){
         this.cardToCheck=null;
@@ -132,6 +136,7 @@ class MixOrMatch{
     victory(){
         clearInterval(this.countDown);
         this.audioController.victory();
+        this.saveBest();
         document.getElementById('victory-text').classList.add('visible');
         this.hideCards();
     }
@@ -147,12 +152,24 @@ class MixOrMatch{
     canFlipCard(card){
         return !this.busy && !this.matchedCards.includes(card) && card!==this.cardToCheck
     }
+
+    showBest(){
+    this.best.innerText=this.bestScore===null?'0':this.bestScore;
+}
+
+saveBest(){
+    if(this.bestScore===null||this.totalClicks<this.bestScore){
+        this.bestScore=this.totalClicks;
+        localStorage.setItem('userBest',this.bestScore);
+        this.showBest();
+    }
+  }
 }
 
 function ready(){
     let overlays=Array.from(document.getElementsByClassName('overlay-text'));
     let cards=Array.from(document.getElementsByClassName('card'));
-    let game=new MixOrMatch(100,cards);
+    let game=new MixOrMatch(60,cards);
     overlays.forEach(overlay=>{
         overlay.addEventListener('click',()=>{
             overlay.classList.remove('visible');

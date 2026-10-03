@@ -218,3 +218,10 @@ animation:overlay-grow 500ms forwards;
         align-items:center;
     }
 }
+
+.best_score{
+    text-align:center;
+    color:var(--text);
+    font-family:"Magnificent",serif;
+    font-size:2em;
+}
