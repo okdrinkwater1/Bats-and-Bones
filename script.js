@@ -16,15 +16,16 @@ class AudioController{
         this.bgMusic.currentTime=0;
     }
     flip(){
+        this.flipSound.currentTime=0;
         this.flipSound.play();
     }
     match(){
+        this.matchSound.currentTime=0;
         this.matchSound.play();
     }
     victory(){
         this.stopMusic();
         this.victorySound.play();
-        document.getElementById('victory-text').classList.add('visible');
     }
     gameOver(){
         this.stopMusic();     
@@ -110,7 +111,7 @@ class MixOrMatch{
         setTimeout(()=>{
             card1.classList.remove('visible');
             card2.classList.remove('visible');
-            this.busy=false;
+            if(this.timeRemaining>0)this.busy=false;
         },1000);
     }
 
@@ -131,6 +132,7 @@ class MixOrMatch{
         clearInterval(this.countDown);
         this.audioController.gameOver();
         document.getElementById('game-over-text').classList.add('visible');
+        this.busy=true;
     }
 
     victory(){
@@ -139,6 +141,7 @@ class MixOrMatch{
         this.saveBest();
         document.getElementById('victory-text').classList.add('visible');
         this.hideCards();
+        this.busy=true;
     }
 
     shuffleCards(){
@@ -184,7 +187,7 @@ function ready(){
 }
 
 if(document.readyState==='loading'){
-   document.addEventListener('DOMContentLoaded', ready());
+   document.addEventListener('DOMContentLoaded', ready);
 }
 else{
     ready();
